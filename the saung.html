@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Saung — Masakan Sunda Autentik Bogor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter','sans-serif'] },
+                    colors: {
+                        sg: { 100:'#DDE4D2', 200:'#A3B891', 300:'#8FA67D', 400:'#7A9268', 500:'#5E7A4E', 600:'#4A6340', 700:'#364A2F' },
+                        bw: { 100:'#E8DFC5', 200:'#C4A96A', 300:'#B39A5C' },
+                        fo: { 50:'#1C2318', 100:'#151A12', 200:'#0F130C', 300:'#0B0E0A', 400:'#080A07' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:#0B0E0A;color:#EEEAE2;overflow-x:hidden}
+        ::-webkit-scrollbar{width:5px}
+        ::-webkit-scrollbar-track{background:#0B0E0A}
+        ::-webkit-scrollbar-thumb{background:#8FA67D;border-radius:10px}
+
+        @keyframes fadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes growLine{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+        @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+        .anim-fu{animation:fadeUp .8s ease-out forwards}
+        .anim-fi{animation:fadeIn 1s ease-out forwards}
+        .anim-fl{animation:float 6s ease-in-out infinite}
+        .anim-mq{animation:marquee 35s linear infinite}
+        .sr{opacity:0;transform:translateY(50px);transition:all .9s cubic-bezier(.22,1,.36,1)}
+        .sr.visible{opacity:1;transform:translateY(0)}
+
+        .sh::-webkit-scrollbar{display:none}
+        .sh{-ms-overflow-style:none;scrollbar-width:none}
+
+        .nav-s{background:rgba(11,14,10,.95)!important;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04)}
+
+        .mc{transition:all .5s cubic-bezier(.22,1,.36,1)}
+        .mc:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(143,166,125,.07)}
+        .mc:hover .mi{transform:scale(1.06)}
+        .mi{transition:transform .7s cubic-bezier(.22,1,.36,1)}
+
+        .gc{position:relative;cursor:pointer;overflow:hidden;border-radius:1rem}
+        .gc img{width:100%;display:block;transition:all .5s ease}
+        .gc:hover img{transform:scale(1.06);filter:brightness(.65)}
+        .gc .ov{position:absolute;inset:0;display:flex;align-items:flex-end;padding:1.25rem;opacity:0;transition:opacity .4s ease;background:linear-gradient(to top,rgba(0,0,0,.5) 0%,transparent 60%)}
+        .gc:hover .ov{opacity:1}
+
+        .lb{opacity:0;pointer-events:none;transition:opacity .3s ease}
+        .lb.show{opacity:1;pointer-events:auto}
+        .lb img{transform:scale(.92);transition:transform .4s cubic-bezier(.22,1,.36,1)}
+        .lb.show img{transform:scale(1)}
+
+        .tb{transition:all .3s ease}
+        .tb.on{background:rgba(143,166,125,.12);color:#A3B891;border-color:rgba(143,166,125,.25)}
+
+        .mm{opacity:0;pointer-events:none;transition:opacity .4s ease}
+        .mm.open{opacity:1;pointer-events:auto}
+        .mm .mc2{transform:translateY(30px);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+        .mm.open .mc2{transform:translateY(0)}
+
+        .glow-g{box-shadow:0 0 100px rgba(143,166,125,.06)}
+
+        .line-d{height:2px;width:60px;background:linear-gradient(to right,#8FA67D,#A3B891);transform-origin:left;animation:growLine .8s ease-out forwards}
+
+        .hero-fade{background:linear-gradient(to right,transparent 40%,#0B0E0A 100%)}
+        @media(max-width:1023px){.hero-fade{background:linear-gradient(to bottom,transparent 40%,#0B0E0A 100%)}}
+    </style>
+</head>
+<body class="font-inter">
+
+<!-- ===================== NAV ===================== -->
+<nav id="nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+    <div class="max-w-7xl mx-auto px-6 lg:px-10 py-4 flex items-center justify-between">
+        <a href="#beranda" class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-full bg-sg-300/15 border border-sg-300/20 flex items-center justify-center">
+                <iconify-icon icon="mdi:leaf" class="text-sg-300 text-lg"></iconify-icon>
+            </div>
+            <div class="hidden sm:block">
+                <div class="text-sm font-bold tracking-tight leading-none">De Saung</div>
+                <div class="text-[9px] text-sg-200/60 font-medium tracking-[.18em] uppercase">Bogor</div>
+            </div>
+        </a>
+        <div class="hidden lg:flex items-center gap-8">
+            <a href="#beranda" class="nl text-[13px] font-medium text-white/50 hover:text-white transition-colors relative group">Beranda<span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-sg-300 transition-all duration-300 group-hover:w-full"></span></a>
+            <a href="#tentang" class="nl text-[13px] font-medium text-white/50 hover:text-white transition-colors relative group">Tentang<span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-sg-300 transition-all duration-300 group-hover:w-full"></span></a>
+            <a href="#menu" class="nl text-[13px] font-medium text-white/50 hover:text-white transition-colors relative group">Menu<span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-sg-300 transition-all duration-300 group-hover:w-full"></span></a>
+            <a href="#galeri" class="nl text-[13px] font-medium text-white/50 hover:text-white transition-colors relative group">Galeri<span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-sg-300 transition-all duration-300 group-hover:w-full"></span></a>
+            <a href="#lokasi" class="nl text-[13px] font-medium text-white/50 hover:text-white transition-colors relative group">Lokasi<span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-sg-300 transition-all duration-300 group-hover:w-full"></span></a>
+        </div>
+        <div class="hidden lg:flex items-center gap-3">
+            <a href="tel:+622518371234" class="text-xs text-white/40 hover:text-sg-300 transition-colors flex items-center gap-1.5"><iconify-icon icon="mdi:phone-outline" class="text-sm"></iconify-icon>0251-8371234</a>
+            <a href="#menu" class="bg-sg-300 hover:bg-sg-200 text-fo-300 text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors">Lihat Menu</a>
+        </div>
+        <button id="mbtn" class="lg:hidden text-white p-1"><iconify-icon icon="mdi:menu" class="text-2xl"></iconify-icon></button>
+    </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div id="mmenu" class="mm fixed inset-0 z-[60] bg-fo-300/98 backdrop-blur-xl flex items-center justify-center">
+    <button id="mcl" class="absolute top-5 right-6 text-white/40 hover:text-white transition-colors"><iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon></button>
+    <div class="mc2 text-center">
+        <div class="flex items-center justify-center gap-2.5 mb-10">
+            <div class="w-10 h-10 rounded-full bg-sg-300/15 border border-sg-300/20 flex items-center justify-center"><iconify-icon icon="mdi:leaf" class="text-sg-300 text-xl"></iconify-icon></div>
+            <span class="text-xl font-bold">De Saung</span>
+        </div>
+        <div class="flex flex-col gap-5">
+            <a href="#beranda" class="ml text-3xl font-light text-white/60 hover:text-sg-300 transition-colors">Beranda</a>
+            <a href="#tentang" class="ml text-3xl font-light text-white/60 hover:text-sg-300 transition-colors">Tentang</a>
+            <a href="#menu" class="ml text-3xl font-light text-white/60 hover:text-sg-300 transition-colors">Menu</a>
+            <a href="#galeri" class="ml text-3xl font-light text-white/60 hover:text-sg-300 transition-colors">Galeri</a>
+            <a href="#lokasi" class="ml text-3xl font-light text-white/60 hover:text-sg-300 transition-colors">Lokasi</a>
+        </div>
+        <div class="mt-10"><a href="#menu" class="ml inline-flex items-center gap-2 bg-sg-300 text-fo-300 text-sm font-semibold px-8 py-3.5 rounded-lg">Pesan Sekarang <iconify-icon icon="mdi:arrow-right"></iconify-icon></a></div>
+    </div>
+</div>
+
+<!-- ===================== HERO (SPLIT) ===================== -->
+<section id="beranda" class="relative min-h-screen grid grid-cols-1 lg:grid-cols-5 overflow-hidden">
+    <!-- Image Side -->
+    <div class="lg:col-span-3 relative min-h-[50vh] lg:min-h-0">
+        <img src="https://picsum.photos/seed/saung-nature-bamboo/1200/900.jpg" alt="" class="absolute inset-0 w-full h-full object-cover">
+        <div class="hero-fade absolute inset-0"></div>
+        <div class="absolute bottom-6 left-6 lg:bottom-10 lg:left-10">
+            <div class="flex items-center gap-2 bg-black/40 backdrop-blur-sm rounded-full px-4 py-2 anim-fi" style="animation-delay:1s;opacity:0">
+                <span class="w-2 h-2 rounded-full bg-sg-300 animate-pulse"></span>
+                <span class="text-[11px] font-medium text-white/70 tracking-wider uppercase">Buka Setiap Hari · 10:00 – 22:00</span>
+            </div>
+        </div>
+    </div>
+    <!-- Text Side -->
+    <div class="lg:col-span-2 flex items-center px-8 lg:px-12 xl:px-16 py-20 lg:py-0 relative">
+        <div class="absolute top-1/3 right-0 w-[400px] h-[400px] bg-sg-300/4 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="relative z-10 max-w-md">
+            <div class="flex items-center gap-3 mb-6 anim-fu" style="animation-delay:.15s;opacity:0">
+                <div class="line-d"></div>
+                <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300">Sundanese Cuisine</span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tighter leading-[.95] mb-6 anim-fu" style="animation-delay:.3s;opacity:0">
+                Selamat<br>Datang di<br><span class="text-sg-300">De Saung</span>
+            </h1>
+            <p class="text-sm text-white/45 leading-relaxed mb-8 anim-fu" style="animation-delay:.45s;opacity:0">
+                Pengalaman bersantap autentik Sunda di tengah suasana saung asri. Bahan segar, resep tradisional, kenangan abadi.
+            </p>
+            <div class="flex flex-wrap gap-3 mb-12 anim-fu" style="animation-delay:.55s;opacity:0">
+                <a href="#menu" class="group bg-sg-300 hover:bg-sg-200 text-fo-300 text-sm font-semibold px-7 py-3.5 rounded-lg transition-colors flex items-center gap-2">
+                    Lihat Menu <iconify-icon icon="mdi:arrow-right" class="transition-transform group-hover:translate-x-1"></iconify-icon>
+                </a>
+                <a href="#lokasi" class="text-sm font-medium text-white/50 hover:text-white px-7 py-3.5 rounded-lg border border-white/8 hover:border-white/15 transition-all flex items-center gap-2">
+                    <iconify-icon icon="mdi:map-marker-outline" class="text-sg-300"></iconify-icon> Lokasi
+                </a>
+            </div>
+            <div class="grid grid-cols-3 gap-6 anim-fu" style="animation-delay:.7s;opacity:0">
+                <div><div class="text-xl font-bold">15<span class="text-sg-300">+</span></div><div class="text-[10px] text-white/30 mt-0.5">Tahun</div></div>
+                <div><div class="text-xl font-bold">50<span class="text-sg-300">+</span></div><div class="text-[10px] text-white/30 mt-0.5">Menu</div></div>
+                <div><div class="text-xl font-bold">4.8</div><div class="text-[10px] text-white/30 mt-0.5">Rating</div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== TENTANG ===================== -->
+<section id="tentang" class="relative py-28 md:py-36 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+            <div>
+                <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-4 block">Tentang Kami</span>
+                <h2 class="text-3xl md:text-4xl lg:text-[2.75rem] font-bold tracking-tight leading-tight mb-4">
+                    Bernapas Ala<br><span class="text-sg-300">Saung Sunda</span>
+                </h2>
+                <div class="line-d mb-8"></div>
+                <p class="text-sm text-white/40 leading-relaxed mb-5">
+                    De Saung lahir dari kecintaan mendalam terhadap budaya kuliner Sunda. Kami menghadirkan suasana makan di saung — tempat berteduh khas Sunda — lengkap dengan hamparan hijau dan udara segar Bogor.
+                </p>
+                <p class="text-sm text-white/40 leading-relaxed mb-10">
+                    Setiap lauk diolah dari bahan pilihan petani lokal Sukajadi dan sekitarnya. Dari gurame segar, ayam kampung, hingga sayuran organik yang kami jaga kesegarannya.
+                </p>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-fo-50/60 rounded-xl p-4 border border-white/[.03]">
+                        <iconify-icon icon="mdi:leaf" class="text-sg-300 text-xl mb-2"></iconify-icon>
+                        <div class="text-sm font-semibold mb-0.5">Bahan Lokal</div>
+                        <div class="text-[11px] text-white/30">Segar dari petani Sukajadi</div>
+                    </div>
+                    <div class="bg-fo-50/60 rounded-xl p-4 border border-white/[.03]">
+                        <iconify-icon icon="mdi:fire" class="text-sg-300 text-xl mb-2"></iconify-icon>
+                        <div class="text-sm font-semibold mb-0.5">Resep Warisan</div>
+                        <div class="text-[11px] text-white/30">Turun-temurun puluhan tahun</div>
+                    </div>
+                    <div class="bg-fo-50/60 rounded-xl p-4 border border-white/[.03]">
+                        <iconify-icon icon="mdi:home-variant-outline" class="text-sg-300 text-xl mb-2"></iconify-icon>
+                        <div class="text-sm font-semibold mb-0.5">Suasana Saung</div>
+                        <div class="text-[11px] text-white/30">Alami, asri, dan nyaman</div>
+                    </div>
+                    <div class="bg-fo-50/60 rounded-xl p-4 border border-white/[.03]">
+                        <iconify-icon icon="mdi:account-group-outline" class="text-sg-300 text-xl mb-2"></iconify-icon>
+                        <div class="text-sm font-semibold mb-0.5">Kapasitas Besar</div>
+                        <div class="text-[11px] text-white/30">Hingga 150 tamu</div>
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="aspect-[4/5] rounded-2xl overflow-hidden">
+                    <img src="https://picsum.photos/seed/bamboo-saung-restaurant/600/750.jpg" alt="De Saung" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-4 -left-4 w-40 h-40 rounded-xl overflow-hidden border-4 border-fo-300 shadow-2xl anim-fl">
+                    <img src="https://picsum.photos/seed/sundanese-spice/300/300.jpg" alt="" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -top-3 -right-3 bg-fo-50 rounded-lg p-4 border border-white/[.05] shadow-xl anim-fl" style="animation-delay:-3s">
+                    <div class="text-lg font-bold text-sg-300">4.8</div>
+                    <div class="flex gap-0.5 mb-0.5"><iconify-icon icon="mdi:star" class="text-bw-200 text-xs"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-xs"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-xs"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-xs"></iconify-icon><iconify-icon icon="mdi:star-half-full" class="text-bw-200 text-xs"></iconify-icon></div>
+                    <div class="text-[10px] text-white/30">2,400+ ulasan</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== SIGNATURE (Numbered) ===================== -->
+<section class="py-24 px-6 lg:px-10 bg-fo-50/40">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="flex items-end justify-between mb-10">
+            <div>
+                <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-3 block">Signature</span>
+                <h2 class="text-2xl md:text-3xl font-bold tracking-tight">Hidangan <span class="text-sg-300">Unggulan</span></h2>
+            </div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="group bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04] transition-all duration-500 hover:border-sg-300/15 hover:shadow-[0_20px_50px_rgba(143,166,125,.06)]">
+                <div class="aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/9032e58e-cda3-4284-8a71-693b8f665ec4.png?auth_key=1880163431-60a1427e64074704ba7bcb6092c4db87-0-89fe84c1b01a7ea60608f53c990c73e4" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-1.05"></div>
+                <div class="p-6">
+                    <div class="text-[11px] font-bold text-sg-300/50 tracking-widest mb-2">01</div>
+                    <h3 class="text-lg font-bold mb-1">Ikan Bakar Gurame</h3>
+                    <p class="text-xs text-white/35 leading-relaxed mb-3">Gurame segar bakar bumbu kecap, sambal terasi, lalapan dan nasi.</p>
+                    <span class="text-sg-200 font-bold text-sm">Rp 85.000</span>
+                </div>
+            </div>
+            <div class="group bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04] transition-all duration-500 hover:border-sg-300/15 hover:shadow-[0_20px_50px_rgba(143,166,125,.06)]">
+                <div class="aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f448362c-c82e-4e9d-8f37-b47efcd0f550.png?auth_key=1880163431-927b88d3592e436b87ae3ddb179801cc-0-d5cef4504c8733d0205ab9ef15ee09f6" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-1.05"></div>
+                <div class="p-6">
+                    <div class="text-[11px] font-bold text-sg-300/50 tracking-widest mb-2">02</div>
+                    <h3 class="text-lg font-bold mb-1">Nasi Timbel Ayam Bakar</h3>
+                    <p class="text-xs text-white/35 leading-relaxed mb-3">Nasi daun pisang, ayam bakar kecap khas Sunda.</p>
+                    <span class="text-sg-200 font-bold text-sm">Rp 55.000</span>
+                </div>
+            </div>
+            <div class="group bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04] transition-all duration-500 hover:border-sg-300/15 hover:shadow-[0_20px_50px_rgba(143,166,125,.06)]">
+                <div class="aspect-[4/3] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/b98c6ba1-7c67-4f5c-8c13-cc84f4c2858b.png?auth_key=1880163431-12a1f034384349fdb39d52664b22aba6-0-67f22a5a8f35cfadb44484f3ad6f238e" alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-1.05"></div>
+                <div class="p-6">
+                    <div class="text-[11px] font-bold text-sg-300/50 tracking-widest mb-2">03</div>
+                    <h3 class="text-lg font-bold mb-1">Ayam Goreng Kampung</h3>
+                    <p class="text-xs text-white/35 leading-relaxed mb-3">Ayam kampung kremes renyah, sambal dadak, lalapan.</p>
+                    <span class="text-sg-200 font-bold text-sm">Rp 50.000</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== MENU ===================== -->
+<section id="menu" class="relative py-28 md:py-36 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="text-center mb-12">
+            <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-3 block">Menu Lengkap</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Semua <span class="text-sg-300">Hidangan</span></h2>
+            <p class="text-sm text-white/35 max-w-md mx-auto">Bahan segar, resep tradisional, disajikan dengan penuh cinta.</p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2 mb-12">
+            <button class="tb on text-xs font-medium px-5 py-2.5 rounded-lg border border-white/[.06] text-white/45 hover:text-white" data-tab="semua">Semua</button>
+            <button class="tb text-xs font-medium px-5 py-2.5 rounded-lg border border-white/[.06] text-white/45 hover:text-white" data-tab="makanan">Makanan Berat</button>
+            <button class="tb text-xs font-medium px-5 py-2.5 rounded-lg border border-white/[.06] text-white/45 hover:text-white" data-tab="sayuran">Sayuran & Lalapan</button>
+            <button class="tb text-xs font-medium px-5 py-2.5 rounded-lg border border-white/[.06] text-white/45 hover:text-white" data-tab="minuman">Minuman</button>
+        </div>
+        <div id="mg" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/c9616631-787d-4884-9cc2-46b5c9f4012a.png?auth_key=1880163431-1f31d77d2f1f43b99ea52faf5f873013-0-693edace7fa9c1b79fb19c5cb797e7f3" alt="Nasi Liwet Komplit" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Nasi Liwet Komplit</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 45k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Nasi liwet santan, ayam goreng, teri, tempe, lalapan, sambal terasi.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/f448362c-c82e-4e9d-8f37-b47efcd0f550.png?auth_key=1880163431-927b88d3592e436b87ae3ddb179801cc-0-d5cef4504c8733d0205ab9ef15ee09f6" alt="Nasi Timbel Ayam Bakar" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Nasi Timbel Ayam Bakar</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 55k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Nasi daun pisang, ayam bakar bumbu kecap, lalapan dan sambal.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/9032e58e-cda3-4284-8a71-693b8f665ec4.png?auth_key=1880163431-60a1427e64074704ba7bcb6092c4db87-0-89fe84c1b01a7ea60608f53c990c73e4" alt="Ikan Bakar Gurame" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Ikan Bakar Gurame</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 85k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Gurame segar bakar kecap, sambal terasi, lalapan, nasi putih.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/b98c6ba1-7c67-4f5c-8c13-cc84f4c2858b.png?auth_key=1880163431-12a1f034384349fdb39d52664b22aba6-0-67f22a5a8f35cfadb44484f3ad6f238e" alt="Ayam Goreng Kampung" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Ayam Goreng Kampung</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 50k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Ayam kampung kremes renyah, nasi, lalapan, sambal dadak.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/c3f3d22f-45aa-46d9-bccc-2dbfab430f7b.png?auth_key=1880163431-ec0d1cd4c9174d00808170bb4875dc35-0-90e9d5a79e63b90cc51d0103421eebf3" alt="Soto Bandung" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Soto Bandung</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 38k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Kuah bening daging sapi, lobak, kacang tanah khas Bandung.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="makanan"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/16402178-4cad-4baa-a6a6-d6da3d10ab00.png?auth_key=1880163431-34f478a828814107b8596987ccd99229-0-1d559e8150d2bab13b8bfd486e527488" alt="Empal Gentong" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Empal Gentong</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 48k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Empal daging sapi kuah santan gurih rempah pilihan.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="sayuran"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/37e110a4-bb73-425d-b547-c34ac4d68683.png?auth_key=1880163431-22828af75e564c159801ade952944bac-0-99ef60257f5c24232eff52d88fe5a41a" alt="Karedok" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Karedok</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 22k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Salad Sunda sayuran mentah segar, bumbu kacang gurih pedas.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="sayuran"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/ee1a7fdb-4f0d-4de1-9cb5-1edf0f3e90c1.png?auth_key=1880163431-acc06be6cca04a2ba32cc24a320f8a1b-0-9382a94ed57bed718b877d2600bb4ad3" alt="Sayur Asem" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Sayur Asem</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 20k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Jagung, labu, kacang panjang, melinjo, kuah asam segar.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="sayuran"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/c9616631-787d-4884-9cc2-46b5c9f4012a.png?auth_key=1880163431-1f31d77d2f1f43b99ea52faf5f873013-0-693edace7fa9c1b79fb19c5cb797e7f3" alt="Tumis Kangkung" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Tumis Kangkung</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 18k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Tumis kangkung segar bumbu terasi khas Sunda.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="sayuran"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/9032e58e-cda3-4284-8a71-693b8f665ec4.png?auth_key=1880163431-60a1427e64074704ba7bcb6092c4db87-0-89fe84c1b01a7ea60608f53c990c73e4" alt="Pepes Ikan Mas" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Pepes Ikan Mas</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 45k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Ikan mas bumbu lengkap, daun pisang, dibakar harum.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="sayuran"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/c3f3d22f-45aa-46d9-bccc-2dbfab430f7b.png?auth_key=1880163431-ec0d1cd4c9174d00808170bb4875dc35-0-90e9d5a79e63b90cc51d0103421eebf3" alt="Lalapan Segar" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Lalapan Segar</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 15k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Kol, timun, tomat, terong, kemangi, sambal terasi.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="minuman"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/0333762f-e09a-4665-99bc-e89bd5b24310.png?auth_key=1880163431-4c6ebe5f77bd4d38b5de7c0853be3539-0-6d2406f27f6984f3df31c5489d664712" alt="Es Cendol" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Es Cendol</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 18k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Cendol pandan, santan gurih, gula merah, es serut.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="minuman"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/4505625d-5add-4563-b426-f4e5a8db6bc4.png?auth_key=1880163431-690c21b236b24aebb8120a8699c1df6a-0-f792e2d065e780d8cbda7d34a6bfd5c2" alt="Es Kelapa Muda" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Es Kelapa Muda</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 20k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Kelapa muda segar, es, sirup gula merah.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="minuman"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/0333762f-e09a-4665-99bc-e89bd5b24310.png?auth_key=1880163431-4c6ebe5f77bd4d38b5de7c0853be3539-0-6d2406f27f6984f3df31c5489d664712" alt="Bajigur" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Bajigur</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 15k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Gula merah, santan, jahe, pandan hangat.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="minuman"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/4505625d-5add-4563-b426-f4e5a8db6bc4.png?auth_key=1880163431-690c21b236b24aebb8120a8699c1df6a-0-f792e2d065e780d8cbda7d34a6bfd5c2" alt="Bandrek Susu" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Bandrek Susu</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 15k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Jahe, serai, kayu manis, gula merah, susu segar.</p></div></div>
+
+            <div class="mc bg-fo-100 rounded-2xl overflow-hidden border border-white/[.04]" data-category="minuman"><div class="aspect-[16/10] overflow-hidden"><img src="https://z-cdn-media.chatglm.cn/files/0333762f-e09a-4665-99bc-e89bd5b24310.png?auth_key=1880163431-4c6ebe5f77bd4d38b5de7c0853be3539-0-6d2406f27f6984f3df31c5489d664712" alt="Teh Talua" class="mi w-full h-full object-cover"></div><div class="p-5"><div class="flex items-start justify-between gap-3 mb-1.5"><h3 class="text-[15px] font-bold">Teh Talua</h3><span class="text-sg-200 font-bold text-sm whitespace-nowrap">Rp 18k</span></div><p class="text-[11px] text-white/30 leading-relaxed">Teh, telur, gula, susu — minuman khas menggugah selera.</p></div></div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ===================== TESTIMONI ===================== -->
+<section class="py-24 px-6 lg:px-10 bg-fo-50/40">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="text-center mb-12">
+            <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-3 block">Testimoni</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight">Kata <span class="text-sg-300">Mereka</span></h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="bg-fo-100 rounded-2xl p-7 border border-white/[.04] hover:border-sg-300/15 transition-all duration-400">
+                <div class="flex gap-0.5 mb-4"><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon></div>
+                <p class="text-sm text-white/50 leading-relaxed mb-6">"Suasananya seperti makan di saung asli di kampung! Ikan bakar guramenya luar biasa, pasti kembali lagi."</p>
+                <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-sg-300/10 flex items-center justify-center text-xs font-bold text-sg-300">AR</div><div><div class="text-sm font-semibold">Andi Rahmat</div><div class="text-[10px] text-white/25">Warga Sukajadi</div></div></div>
+            </div>
+            <div class="bg-fo-100 rounded-2xl p-7 border border-white/[.04] hover:border-sg-300/15 transition-all duration-400">
+                <div class="flex gap-0.5 mb-4"><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon></div>
+                <p class="text-sm text-white/50 leading-relaxed mb-6">"Tempat favorit keluarga untuk makan siang. Nasi timbel dan karedoknya juara, pelayanannya ramah."</p>
+                <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-sg-300/10 flex items-center justify-center text-xs font-bold text-sg-300">SW</div><div><div class="text-sm font-semibold">Siti Wulandari</div><div class="text-[10px] text-white/25">Ibu Rumah Tangga</div></div></div>
+            </div>
+            <div class="bg-fo-100 rounded-2xl p-7 border border-white/[.04] hover:border-sg-300/15 transition-all duration-400">
+                <div class="flex gap-0.5 mb-4"><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star" class="text-bw-200 text-sm"></iconify-icon><iconify-icon icon="mdi:star-half-full" class="text-bw-200 text-sm"></iconify-icon></div>
+                <p class="text-sm text-white/50 leading-relaxed mb-6">"Cocok untuk acara arisan dan kumpul-kumpul. Makanannya konsisten enak, harganya juga bersahabat. Recommended!"</p>
+                <div class="flex items-center gap-3"><div class="w-9 h-9 rounded-full bg-sg-300/10 flex items-center justify-center text-xs font-bold text-sg-300">HP</div><div><div class="text-sm font-semibold">Hendra Pratama</div><div class="text-[10px] text-white/25">Pengusaha</div></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== GALERI (Asymmetric Grid) ===================== -->
+<section id="galeri" class="relative py-28 md:py-36 px-6 lg:px-10">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="text-center mb-12">
+            <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-3 block">Galeri</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Momen di <span class="text-sg-300">De Saung</span></h2>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="gc col-span-2 row-span-2 aspect-square md:aspect-auto" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/9032e58e-cda3-4284-8a71-693b8f665ec4.png?auth_key=1880163431-60a1427e64074704ba7bcb6092c4db87-0-89fe84c1b01a7ea60608f53c990c73e4" alt="Ikan Bakar"><div class="ov"><span class="text-xs font-medium">Ikan Bakar Premium</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/0333762f-e09a-4665-99bc-e89bd5b24310.png?auth_key=1880163431-4c6ebe5f77bd4d38b5de7c0853be3539-0-6d2406f27f6984f3df31c5489d664712" alt="Minuman"><div class="ov"><span class="text-xs font-medium">Minuman Segar</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/37e110a4-bb73-425d-b547-c34ac4d68683.png?auth_key=1880163431-22828af75e564c159801ade952944bac-0-99ef60257f5c24232eff52d88fe5a41a" alt="Mie Seafood"><div class="ov"><span class="text-xs font-medium">Mie Seafood</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/b98c6ba1-7c67-4f5c-8c13-cc84f4c2858b.png?auth_key=1880163431-12a1f034384349fdb39d52664b22aba6-0-67f22a5a8f35cfadb44484f3ad6f238e" alt="Ayam Goreng"><div class="ov"><span class="text-xs font-medium">Ayam Goreng</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/ee1a7fdb-4f0d-4de1-9cb5-1edf0f3e90c1.png?auth_key=1880163431-acc06be6cca04a2ba32cc24a320f8a1b-0-9382a94ed57bed718b877d2600bb4ad3" alt="Mie Spesial"><div class="ov"><span class="text-xs font-medium">Mie Spesial</span></div></div>
+            <div class="gc col-span-2 aspect-[2/1]" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/c3f3d22f-45aa-46d9-bccc-2dbfab430f7b.png?auth_key=1880163431-ec0d1cd4c9174d00808170bb4875dc35-0-90e9d5a79e63b90cc51d0103421eebf3" alt="Nasi Kuning"><div class="ov"><span class="text-xs font-medium">Nasi Kuning Komplit</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/16402178-4cad-4baa-a6a6-d6da3d10ab00.png?auth_key=1880163431-34f478a828814107b8596987ccd99229-0-1d559e8150d2bab13b8bfd486e527488" alt="Set Menu"><div class="ov"><span class="text-xs font-medium">Set Menu</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/4505625d-5add-4563-b426-f4e5a8db6bc4.png?auth_key=1880163431-690c21b236b24aebb8120a8699c1df6a-0-f792e2d065e780d8cbda7d34a6bfd5c2" alt="Juice"><div class="ov"><span class="text-xs font-medium">Juice Buah</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/c9616631-787d-4884-9cc2-46b5c9f4012a.png?auth_key=1880163431-1f31d77d2f1f43b99ea52faf5f873013-0-693edace7fa9c1b79fb19c5cb797e7f3" alt="Nasi Goreng"><div class="ov"><span class="text-xs font-medium">Nasi Goreng</span></div></div>
+            <div class="gc aspect-square" onclick="oLB(this)"><img src="https://z-cdn-media.chatglm.cn/files/f448362c-c82e-4e9d-8f37-b47efcd0f550.png?auth_key=1880163431-927b88d3592e436b87ae3ddb179801cc-0-d5cef4504c8733d0205ab9ef15ee09f6" alt="Ayam Panggang"><div class="ov"><span class="text-xs font-medium">Ayam Panggang</span></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox -->
+<div id="lb" class="lb fixed inset-0 z-[100] bg-black/92 flex items-center justify-center p-6" onclick="cLB(event)">
+    <button onclick="cLB(event)" class="absolute top-5 right-6 text-white/50 hover:text-white transition-colors z-10"><iconify-icon icon="mdi:close" class="text-3xl"></iconify-icon></button>
+    <button onclick="nLB(-1,event)" class="absolute left-4 md:left-8 text-white/30 hover:text-white transition-colors z-10"><iconify-icon icon="mdi:chevron-left" class="text-5xl"></iconify-icon></button>
+    <button onclick="nLB(1,event)" class="absolute right-4 md:right-8 text-white/30 hover:text-white transition-colors z-10"><iconify-icon icon="mdi:chevron-right" class="text-5xl"></iconify-icon></button>
+    <img id="lbi" src="" alt="" class="max-w-full max-h-[85vh] rounded-xl object-contain">
+</div>
+
+<!-- ===================== LOKASI ===================== -->
+<section id="lokasi" class="relative py-28 md:py-36 px-6 lg:px-10 bg-fo-50/40">
+    <div class="max-w-7xl mx-auto sr">
+        <div class="text-center mb-12">
+            <span class="text-[11px] font-semibold tracking-[.2em] uppercase text-sg-300 mb-3 block">Lokasi</span>
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Kunjungi <span class="text-sg-300">De Saung</span></h2>
+        </div>
+        <div class="grid lg:grid-cols-5 gap-6">
+            <div class="lg:col-span-2 space-y-4">
+                <div class="bg-fo-100 rounded-xl p-5 border border-white/[.04]">
+                    <div class="flex items-start gap-3"><div class="w-9 h-9 rounded-lg bg-sg-300/10 flex items-center justify-center shrink-0"><iconify-icon icon="mdi:map-marker" class="text-sg-300"></iconify-icon></div><div><h4 class="text-sm font-semibold mb-1">Alamat</h4><p class="text-[11px] text-white/35 leading-relaxed">9P58+QX Sukajadi, Kabupaten Bogor, Jawa Barat</p></div></div>
+                </div>
+                <div class="bg-fo-100 rounded-xl p-5 border border-white/[.04]">
+                    <div class="flex items-start gap-3"><div class="w-9 h-9 rounded-lg bg-sg-300/10 flex items-center justify-center shrink-0"><iconify-icon icon="mdi:clock-outline" class="text-sg-300"></iconify-icon></div><div><h4 class="text-sm font-semibold mb-2">Jam Buka</h4><div class="text-[11px] text-white/35 space-y-1"><div class="flex justify-between gap-4"><span>Senin – Jumat</span><span class="text-white/55">10:00 – 22:00</span></div><div class="flex justify-between gap-4"><span>Sabtu</span><span class="text-white/55">09:00 – 23:00</span></div><div class="flex justify-between gap-4"><span>Minggu</span><span class="text-white/55">09:00 – 21:00</span></div></div></div></div>
+                </div>
+                <div class="bg-fo-100 rounded-xl p-5 border border-white/[.04]">
+                    <div class="flex items-start gap-3"><div class="w-9 h-9 rounded-lg bg-sg-300/10 flex items-center justify-center shrink-0"><iconify-icon icon="mdi:phone-outline" class="text-sg-300"></iconify-icon></div><div><h4 class="text-sm font-semibold mb-1">Kontak</h4><p class="text-[11px] text-white/35">0251-8371234</p><p class="text-[11px] text-white/35">0812-3456-7890 (WhatsApp)</p></div></div>
+                </div>
+                <div class="bg-fo-100 rounded-xl p-5 border border-white/[.04]">
+                    <h4 class="text-sm font-semibold mb-3">Ikuti Kami</h4>
+                    <div class="flex gap-2">
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:instagram" class="text-white/30 hover:text-sg-300 text-sm"></iconify-icon></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:facebook" class="text-white/30 hover:text-sg-300 text-sm"></iconify-icon></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:whatsapp" class="text-white/30 hover:text-sg-300 text-sm"></iconify-icon></a>
+                        <a href="#" class="w-9 h-9 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:tiktok" class="text-white/30 hover:text-sg-300 text-sm"></iconify-icon></a>
+                    </div>
+                </div>
+                <a href="https://www.google.com/maps/dir/?api=1&destination=9P58+QX+Sukajadi+Kabupaten+Bogor+Jawa+Barat" target="_blank" class="block bg-sg-300 hover:bg-sg-200 text-fo-300 text-sm font-semibold py-3.5 rounded-xl text-center transition-colors">Petunjuk Arah →</a>
+            </div>
+            <div class="lg:col-span-3 rounded-2xl overflow-hidden border border-white/[.04] min-h-[400px]">
+                <iframe src="https://maps.google.com/maps?q=9P58+QX+Sukajadi+Kabupaten+Bogor+Jawa+Barat&t=&z=15&ie=UTF8&iwloc=&output=embed" width="100%" height="100%" style="border:0;min-height:400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="relative py-28 px-6 lg:px-10 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-sg-700/15 via-fo-300 to-fo-300 glow-g"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-sg-300/4 rounded-full blur-[140px] pointer-events-none"></div>
+    <div class="relative max-w-2xl mx-auto text-center sr">
+        <iconify-icon icon="mdi:leaf-circle-outline" class="text-sg-300/30 text-5xl mb-6"></iconify-icon>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-5 leading-tight">Reservasi <span class="text-sg-300">Meja Anda</span></h2>
+        <p class="text-sm text-white/35 max-w-md mx-auto mb-10 leading-relaxed">Hubungi kami untuk reservasi, acara keluarga, arisan, atau pertemuan di suasana saung yang asri.</p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <a href="https://wa.me/6281234567890?text=Halo,%20saya%20ingin%20reservasi%20di%20De%20Saung" target="_blank" class="group bg-sg-300 hover:bg-sg-200 text-fo-300 text-sm font-semibold px-8 py-4 rounded-lg transition-colors flex items-center gap-2.5 shadow-lg shadow-sg-300/15">
+                <iconify-icon icon="mdi:whatsapp" class="text-lg"></iconify-icon> WhatsApp <iconify-icon icon="mdi:arrow-right" class="transition-transform group-hover:translate-x-1"></iconify-icon>
+            </a>
+            <a href="tel:+622518371234" class="text-sm font-medium text-white/45 hover:text-white px-8 py-4 rounded-lg border border-white/[.06] hover:border-white/12 transition-all flex items-center gap-2">
+                <iconify-icon icon="mdi:phone-outline" class="text-sg-300"></iconify-icon> 0251-8371234
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="relative border-t border-white/[.03] pt-14 pb-8 px-6 lg:px-10">
+    <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-sg-300/20 to-transparent"></div>
+    <div class="max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-12 gap-10 mb-12">
+            <div class="md:col-span-4">
+                <div class="flex items-center gap-2.5 mb-4">
+                    <div class="w-9 h-9 rounded-full bg-sg-300/15 border border-sg-300/20 flex items-center justify-center"><iconify-icon icon="mdi:leaf" class="text-sg-300 text-lg"></iconify-icon></div>
+                    <div><div class="font-bold leading-none">De Saung</div><div class="text-[9px] text-white/25 tracking-[.15em] uppercase">Masakan Sunda Autentik</div></div>
+                </div>
+                <p class="text-[11px] text-white/25 leading-relaxed mb-4 max-w-xs">Pengalaman bersantap Sunda autentik di suasana saung asri, Sukajadi, Kabupaten Bogor.</p>
+                <div class="flex gap-2">
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:instagram" class="text-white/25 hover:text-sg-300 text-sm"></iconify-icon></a>
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:facebook" class="text-white/25 hover:text-sg-300 text-sm"></iconify-icon></a>
+                    <a href="#" class="w-8 h-8 rounded-lg bg-white/[.03] hover:bg-sg-300/10 flex items-center justify-center transition-colors"><iconify-icon icon="mdi:whatsapp" class="text-white/25 hover:text-sg-300 text-sm"></iconify-icon></a>
+                </div>
+            </div>
+            <div class="md:col-span-2"><h4 class="text-[11px] font-bold tracking-wider uppercase text-white/50 mb-4">Menu</h4><ul class="space-y-2.5"><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Nasi Liwet</a></li><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Ikan Bakar Gurame</a></li><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Ayam Goreng Kampung</a></li><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Karedok</a></li><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Es Cendol</a></li></ul></div>
+            <div class="md:col-span-3"><h4 class="text-[11px] font-bold tracking-wider uppercase text-white/50 mb-4">Navigasi</h4><ul class="space-y-2.5"><li><a href="#beranda" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Beranda</a></li><li><a href="#tentang" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Tentang</a></li><li><a href="#menu" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Menu</a></li><li><a href="#galeri" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Galeri</a></li><li><a href="#lokasi" class="text-[11px] text-white/25 hover:text-sg-300 transition-colors">Lokasi</a></li></ul></div>
+            <div class="md:col-span-3"><h4 class="text-[11px] font-bold tracking-wider uppercase text-white/50 mb-4">Kontak</h4><ul class="space-y-2.5"><li class="flex items-start gap-2"><iconify-icon icon="mdi:map-marker-outline" class="text-sg-300 text-xs mt-px shrink-0"></iconify-icon><span class="text-[11px] text-white/25">9P58+QX Sukajadi, Kab. Bogor, Jawa Barat</span></li><li class="flex items-center gap-2"><iconify-icon icon="mdi:phone-outline" class="text-sg-300 text-xs shrink-0"></iconify-icon><span class="text-[11px] text-white/25">0251-8371234</span></li><li class="flex items-center gap-2"><iconify-icon icon="mdi:email-outline" class="text-sg-300 text-xs shrink-0"></iconify-icon><span class="text-[11px] text-white/25">info@desaung.id</span></li><li class="flex items-center gap-2"><iconify-icon icon="mdi:clock-outline" class="text-sg-300 text-xs shrink-0"></iconify-icon><span class="text-[11px] text-white/25">Setiap Hari 10:00 – 22:00</span></li></ul></div>
+        </div>
+        <div class="pt-7 border-t border-white/[.03] flex flex-col md:flex-row items-center justify-between gap-2">
+            <p class="text-[10px] text-white/15">© 2024 De Saung. Hak cipta dilindungi.</p>
+            <p class="text-[10px] text-white/15">Sukajadi, Kabupaten Bogor, Jawa Barat</p>
+        </div>
+    </div>
+</footer>
+
+<button id="btt" class="fixed bottom-6 right-6 w-10 h-10 rounded-lg bg-sg-300 hover:bg-sg-200 text-fo-300 flex items-center justify-center shadow-lg shadow-sg-300/15 opacity-0 pointer-events-none transition-all duration-300 z-40" onclick="window.scrollTo({top:0,behavior:'smooth'})"><iconify-icon icon="mdi:chevron-up" class="text-lg"></iconify-icon></button>
+
+<script>
+// Nav scroll
+window.addEventListener('scroll',()=>{document.getElementById('nav').classList.toggle('nav-s',scrollY>60);const b=document.getElementById('btt');b.style.opacity=scrollY>600?'1':'0';b.style.pointerEvents=scrollY>600?'auto':'none'});
+
+// Mobile
+const mm=document.getElementById('mmenu');
+document.getElementById('mbtn').addEventListener('click',()=>{mm.classList.add('open');document.body.style.overflow='hidden'});
+document.getElementById('mcl').addEventListener('click',()=>{mm.classList.remove('open');document.body.style.overflow=''});
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>{mm.classList.remove('open');document.body.style.overflow=''}));
+
+// Menu filter
+document.querySelectorAll('.tb').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');const t=btn.dataset.tab;document.querySelectorAll('.mc').forEach((c,i)=>{if(t==='semua'||c.dataset.category===t){c.style.display='';c.style.opacity='0';c.style.transform='translateY(15px)';setTimeout(()=>{c.style.transition='all .35s ease';c.style.opacity='1';c.style.transform='translateY(0)'},i*40)}else c.style.display='none'})})});
+
+// Lightbox
+const lbE=document.getElementById('lb'),lbi=document.getElementById('lbi');let gI=[],gX=0;
+document.addEventListener('DOMContentLoaded',()=>{gI=Array.from(document.querySelectorAll('.gc img')).map(i=>i.src)});
+function oLB(el){const img=el.querySelector('img');gX=gI.indexOf(img.src);lbi.src=img.src;lbE.classList.add('show');document.body.style.overflow='hidden'}
+function cLB(e){if(e.target===lbE||e.currentTarget.tagName==='BUTTON'){lbE.classList.remove('show');document.body.style.overflow=''}}
+function nLB(d,e){e.stopPropagation();gX=(gX+d+gI.length)%gI.length;lbi.style.opacity='0';lbi.style.transform=(d>0?'translateX(25px)':'translateX(-25px)');setTimeout(()=>{lbi.src=gI[gX];lbi.style.transition='all .25s ease';lbi.style.opacity='1';lbi.style.transform='translateX(0)'},120)}
+document.addEventListener('keydown',e=>{if(!lbE.classList.contains('show'))return;if(e.key==='Escape'){lbE.classList.remove('show');document.body.style.overflow=''}if(e.key==='ArrowLeft')nLB(-1,e);if(e.key==='ArrowRight')nLB(1,e)});
+
+// Scroll reveal
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.06,rootMargin:'0px 0px -30px 0px'});
+document.querySelectorAll('.sr').forEach(el=>ob.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+</script>
+</body>
+</html>
